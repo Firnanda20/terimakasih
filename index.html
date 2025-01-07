@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terima Kasih</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 1s;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .button {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: white;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #e6514c;
+        }
+
+        #animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6f61;
+            clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+            animation: float 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body id="main-body">
+    <div class="container">
+        <h1>Terima Kasih</h1>
+        <p id="page1">Terkadang, hidup membawa kita pada pertemuan yang tak terduga, namun penuh makna. Kepada kamu yang pernah ada di perjalanan ini, aku hanya ingin mengucapkan, "Thank you for everything."</p>
+        <p id="page2">Kenangan tentang hari-hari kita, percakapan panjang, dan tawa yang kita bagi masih terasa hangat di hati. Tidak ada yang sia-sia, karena semuanya mengajarkan kita sesuatu.</p>
+        <p id="page3">Meski kini jalan kita berbeda, aku selalu berharap yang terbaik untukmu. Setiap langkah yang kamu ambil, semoga penuh keberanian dan kebahagiaan.</p>
+        <p id="page4">Thank you for being a part of my story. Your impact will always be cherished, and the lessons you've given will always guide me forward.</p>
+        <button class="button" onclick="nextPage()">Lanjutkan</button>
+    </div>
+
+    <div id="animation">
+        <!-- Hearts Animation -->
+    </div>
+
+    <audio id="song" src="Hal-Terimaksih.mp3"></audio>
+
+    <script>
+        const pages = document.querySelectorAll('p');
+        const body = document.getElementById('main-body');
+        const audio = document.getElementById('song');
+        let currentPage = 0;
+
+        const backgrounds = [
+            'linear-gradient(135deg, #ff9a9e, #fad0c4)',
+            'linear-gradient(135deg, #a18cd1, #fbc2eb)',
+            'linear-gradient(135deg, #fbc2eb, #a6c1ee)',
+            'linear-gradient(135deg, #fdcbf1, #e6dee9)'
+        ];
+
+        function nextPage() {
+            if (currentPage === 0) {
+                audio.play();
+            }
+            if (currentPage < pages.length) {
+                if (currentPage > 0) {
+                    pages[currentPage - 1].style.display = 'none';
+                }
+                pages[currentPage].style.display = 'block';
+                body.style.background = backgrounds[currentPage];
+                currentPage++;
+            }
+        }
+
+        // Generate hearts animation
+        const animationDiv = document.getElementById('animation');
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            animationDiv.appendChild(heart);
+        }
+
+        // Initialize first page
+        pages[0].style.display = 'block';
+        body.style.background = backgrounds[0];
+    </script>
+</body>
+</html>
